@@ -6,7 +6,7 @@ from sklearn.exceptions import ConvergenceWarning
 warnings.filterwarnings('ignore', category=ConvergenceWarning, module='sklearn.gaussian_process.kernels')
 
 
-def PLOT_Ptolemy_electron_spectra(spectra_list):
+def PLOT_Ptolemy_electron_spectra(spectra_list, m_lightest_arr, Delta_arr):
 
     # Define the set of valid spectra options
     valid_spectra = [
@@ -31,10 +31,10 @@ def PLOT_Ptolemy_electron_spectra(spectra_list):
 
 
     # Lighest neutrino masses to anchor hierarchy
-    m_lightest_arr = jnp.array([10, 50, 100, 300])*Params.meV
+    # m_lightest_arr = jnp.array([10, 50, 100, 300])*Params.meV  # original
 
     # PTOLEMY experiment energy resolutions [meV]
-    Delta_arr = [20, 20, 20]
+    # Delta_arr = [20, 20, 20]  # original
 
     # Explore both mass orderings
     orders = [
@@ -63,18 +63,21 @@ def PLOT_Ptolemy_electron_spectra(spectra_list):
         # if i != 0:  # for testing
         #     continue
 
-        if i == 0:  # upper left plot
-            m_lightest = m_lightest_arr[0]
-            Delta = Delta_arr[0]
-        elif i == 1:  # upper right plot
-            m_lightest = m_lightest_arr[1]
-            Delta = Delta_arr[0]
-        elif i == 2:  # lower left plot
-            m_lightest = m_lightest_arr[2]
-            Delta = Delta_arr[1]
-        elif i == 3:  # lower right plot
-            m_lightest = m_lightest_arr[3]
-            Delta = Delta_arr[2]
+        # if i == 0:  # upper left plot
+        #     m_lightest = m_lightest_arr[0]
+        #     Delta = Delta_arr[0]
+        # elif i == 1:  # upper right plot
+        #     m_lightest = m_lightest_arr[1]
+        #     Delta = Delta_arr[0]
+        # elif i == 2:  # lower left plot
+        #     m_lightest = m_lightest_arr[2]
+        #     Delta = Delta_arr[1]
+        # elif i == 3:  # lower right plot
+        #     m_lightest = m_lightest_arr[3]
+        #     Delta = Delta_arr[2]
+
+        m_lightest = m_lightest_arr[i]
+        Delta = Delta_arr[i]
 
         # Standard deviation for Gaussian convolution kernel
         sigma = Delta/jnp.sqrt(8*jnp.log(2))
@@ -287,7 +290,8 @@ def PLOT_Ptolemy_electron_spectra(spectra_list):
     plt.suptitle('PTOLEMY electron energy spectra')
     plt.tight_layout()
     plt.savefig('PTOLEMY_electron_spectra_simulation.pdf', bbox_inches='tight')
-    plt.show(); plt.close()
+    # plt.show()
+    plt.close()
 
 
 PLOT_Ptolemy_electron_spectra(
@@ -300,5 +304,7 @@ PLOT_Ptolemy_electron_spectra(
         # "total_smeared",
         # "gaussian_kernel",
         "CNB_sim_smeared",
-        )
+        ),
+    m_lightest_arr=jnp.array([10, 50, 100, 200])*Params.meV,
+    Delta_arr=[20, 50, 50, 100]
     )
