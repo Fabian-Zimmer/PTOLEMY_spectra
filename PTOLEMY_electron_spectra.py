@@ -63,19 +63,6 @@ def PLOT_Ptolemy_electron_spectra(spectra_list, m_lightest_arr, Delta_arr):
         # if i != 0:  # for testing
         #     continue
 
-        # if i == 0:  # upper left plot
-        #     m_lightest = m_lightest_arr[0]
-        #     Delta = Delta_arr[0]
-        # elif i == 1:  # upper right plot
-        #     m_lightest = m_lightest_arr[1]
-        #     Delta = Delta_arr[0]
-        # elif i == 2:  # lower left plot
-        #     m_lightest = m_lightest_arr[2]
-        #     Delta = Delta_arr[1]
-        # elif i == 3:  # lower right plot
-        #     m_lightest = m_lightest_arr[3]
-        #     Delta = Delta_arr[2]
-
         m_lightest = m_lightest_arr[i]
         Delta = Delta_arr[i]
 
